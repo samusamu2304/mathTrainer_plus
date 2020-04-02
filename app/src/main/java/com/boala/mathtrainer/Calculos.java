@@ -44,7 +44,13 @@ public class Calculos extends AppCompatActivity {
         comp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int resV = Integer.parseInt(res.getText().toString());
+                int resV;
+                try {
+                    resV = Integer.parseInt(res.getText().toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                    resV = 0;
+                }
                 if (resV == c){
                     Toast.makeText(getApplicationContext(),"correcto",Toast.LENGTH_SHORT).show();
                     res.setText("");
