@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">mathTrainer+</string>
+    <string name="calc" />
+    <string name="regenerar">regenerar</string>
+    <string name="suma">suma</string>
+    <string name="resta">resta</string>
+</resources>
