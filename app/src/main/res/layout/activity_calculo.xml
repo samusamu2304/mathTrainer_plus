@@ -10,54 +10,75 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
 
             <TextView
                 android:id="@+id/calc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/res"
-                android:layout_alignParentStart="true"
                 android:text="@string/calc"
                 android:textColor="@android:color/black"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                android:layout_marginBottom="5dp"
+                />
 
             <EditText
                 android:id="@+id/res"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@id/calc"
-                android:background="@drawable/round"
-                android:ems="10"
+                android:background="?colorBackgroundFloating"
                 android:inputType="numberDecimal|numberSigned"
                 android:textColor="@android:color/black"
-                android:textSize="40sp" />
-        </RelativeLayout>
+                android:textSize="40sp"
+                android:imeOptions="actionDone"
+                />
+            <ImageButton
+                android:id="@+id/regenB"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="5dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:background="@drawable/effect_ripple"
+                android:src="@drawable/refresh"
+                style="@style/Widget.AppCompat.Button.Borderless" />
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/regenB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="@string/regenerar"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTimer"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintTop_toBottomOf="@id/card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent">
+    <ProgressBar
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        />
+    </androidx.cardview.widget.CardView>
+
 
     <Button
         android:id="@+id/compB"
