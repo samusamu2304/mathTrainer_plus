@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Menu extends AppCompatActivity {
-    public static final String EXTRA_STRING = "com.boala.mathtrainer.STRING";
+    public static final String EXTRA_STRING = "operacion";
     Button suma, resta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
