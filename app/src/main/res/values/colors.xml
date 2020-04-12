@@ -3,4 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="salmon">#FA8072</color>
+    <color name="khaki">#F0E68C</color>
+    <color name="mediumaquamarine">#66CDAA</color>
+    <color name="skyblue">#87CEEB</color>
 </resources>

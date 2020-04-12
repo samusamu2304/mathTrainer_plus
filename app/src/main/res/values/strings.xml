@@ -4,4 +4,6 @@
     <string name="regenerar">regenerar</string>
     <string name="suma">suma</string>
     <string name="resta">resta</string>
+    <string name="multiplicacion">multiplicación</string>
+    <string name="division">división</string>
 </resources>

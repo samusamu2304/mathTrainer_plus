@@ -34,6 +34,7 @@ public class Calculos extends AppCompatActivity {
     private RecyclerView rvRes;
     private ResAdapter adapter;
     private ArrayList<Result> resData;
+    private int time = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +78,33 @@ public class Calculos extends AppCompatActivity {
         if (myTimer!=null){
             myTimer.cancel();
         }
-        a = new Random().nextInt(100)+1;
-        b = new Random().nextInt(100)+1;
         switch (calcType){
             case "suma":
+                a = randomInt(100);
+                b = randomInt(100);
                 c = a+b;
                 calc.setText(a+"+"+b+"=");
                 break;
             case "resta":
+                a = randomInt(100);
+                b = randomInt(100);
                 if (a == b){
                     a++;
                 }
                 c = a-b;
                 calc.setText(a+"-"+b+"=");
+                break;
+            case "multiplicacion":
+                a = randomInt(100);
+                b = randomInt(10);
+                c = a*b;
+                calc.setText(a+"x"+b+"=");
+                break;
+            case "division":
+                a = randomInt(100);
+                b = randomInt(10);
+                c = a/b;
+                calc.setText(a+"/"+b+"=");
                 break;
         }
         timer.setProgress(1000);
@@ -155,5 +170,10 @@ public class Calculos extends AppCompatActivity {
             res.setText("");
             createCalc(10);
         }
+    }
+    //generador de numeros aleatorios
+    public int randomInt(int range){
+        int random = new Random().nextInt(range)+1;
+        return random;
     }
 }
