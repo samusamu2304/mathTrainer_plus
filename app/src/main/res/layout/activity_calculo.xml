@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".Calculos">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
