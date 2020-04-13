@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+
     tools:context=".Menu">
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +24,7 @@
                 android:id="@+id/suma"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="4dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/plus"
                 android:backgroundTint="@color/salmon"
                 android:adjustViewBounds="true"
@@ -36,25 +36,18 @@
                 android:id="@+id/resta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="4dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/minus"
                 android:backgroundTint="@color/khaki"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_weight="1"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
             <ImageButton
                 android:id="@+id/multiplicacion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="4dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/close"
                 android:backgroundTint="@color/mediumaquamarine"
                 android:adjustViewBounds="true"
@@ -66,8 +59,7 @@
                 android:id="@+id/division"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="4dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/division"
                 android:backgroundTint="@color/skyblue"
                 android:adjustViewBounds="true"

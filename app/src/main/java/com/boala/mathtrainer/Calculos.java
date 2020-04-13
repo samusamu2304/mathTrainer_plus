@@ -43,6 +43,7 @@ public class Calculos extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         calcType = intent.getStringExtra(Menu.EXTRA_STRING);
+        time = intent.getIntExtra("time",10);
         calc = findViewById(R.id.calc);
         regen = findViewById(R.id.regenB);
         res = findViewById(R.id.res);
@@ -54,7 +55,7 @@ public class Calculos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 res.setText("");
-                createCalc(10);
+                createCalc(time);
             }
         });
         res.setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -67,9 +68,12 @@ public class Calculos extends AppCompatActivity {
                 return false;
             }
             });
-        createCalc(10);
+        createCalc(time);
         resData = new ArrayList<>();
-        rvRes.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        rvRes.setLayoutManager(linearLayoutManager);
         adapter = new ResAdapter(this,resData);
         rvRes.setAdapter(adapter);
     }
@@ -101,9 +105,11 @@ public class Calculos extends AppCompatActivity {
                 calc.setText(a+"x"+b+"=");
                 break;
             case "division":
-                a = randomInt(100);
-                b = randomInt(10);
-                c = a/b;
+                do {
+                    a = randomInt(100);
+                    b = randomInt(10);
+                    c = a/b;
+                }while (b>a||a%b!=0);
                 calc.setText(a+"/"+b+"=");
                 break;
         }
@@ -123,24 +129,31 @@ public class Calculos extends AppCompatActivity {
             resV = 0;
         }
         if (resV == c){
-            Toast.makeText(getApplicationContext(),"correcto",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"correcto",Toast.LENGTH_SHORT).show();
             result = new Result(calc.getText()+(res.getText().toString()),true);
             resData.add(result);
             adapter.notifyDataSetChanged();
-            createCalc(10);
+            createCalc(time);
             res.setText("");
+            rvRes.smoothScrollToPosition(adapter.getItemCount());
             return true;
         }else{
-            Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
-            if (resV!=0){
+            //Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+            //animacion innecesaria por nueva metodologia
+            /*if (resV!=0){
             ObjectAnimator anim = ObjectAnimator.ofInt(res, "textColor", Color.BLACK,Color.RED,Color.BLACK);
             anim.setDuration(1000);
             anim.setEvaluator(new ArgbEvaluator());
             anim.setRepeatCount(1);
-            anim.start();}
+            anim.start();}*/
+            if (res.getText().toString().equals("")){
+                res.setText("0");
+            }
             result = new Result(calc.getText()+(res.getText().toString()),false);
+            res.setText("");
             resData.add(result);
             adapter.notifyDataSetChanged();
+            rvRes.smoothScrollToPosition(adapter.getItemCount());
             return false;
         }
     }
@@ -168,7 +181,7 @@ public class Calculos extends AppCompatActivity {
             timer.setProgress(0);
             checkRes();
             res.setText("");
-            createCalc(10);
+            createCalc(time);
         }
     }
     //generador de numeros aleatorios
