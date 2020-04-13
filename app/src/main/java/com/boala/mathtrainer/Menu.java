@@ -1,6 +1,9 @@
 package com.boala.mathtrainer;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +20,18 @@ public class Menu extends AppCompatActivity {
     int time = 10;;
     ImageButton suma, resta, multiplicacion, division;
     IndicatorSeekBar seekTime;
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
         suma = findViewById(R.id.suma);
         resta = findViewById(R.id.resta);
         multiplicacion = findViewById(R.id.multiplicacion);
