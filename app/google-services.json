@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "135698107486",
+    "firebase_url": "https://mathtrainer-cb312.firebaseio.com",
+    "project_id": "mathtrainer-cb312",
+    "storage_bucket": "mathtrainer-cb312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135698107486:android:6a3ce90b60fd909a2638cf",
+        "android_client_info": {
+          "package_name": "com.boala.mathtrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135698107486-0dscqqift5lqhj004dvsfqgdrj45nt8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaNqKD4-mk0GYWBc6131DnHH6MZMH_DuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135698107486-0dscqqift5lqhj004dvsfqgdrj45nt8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
