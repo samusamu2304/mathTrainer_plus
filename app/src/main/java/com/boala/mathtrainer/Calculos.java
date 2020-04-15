@@ -1,5 +1,6 @@
 package com.boala.mathtrainer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +22,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Calculos extends AppCompatActivity {
@@ -36,6 +46,8 @@ public class Calculos extends AppCompatActivity {
     private ResAdapter adapter;
     private ArrayList<Result> resData;
     private int time = 0;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +150,9 @@ public class Calculos extends AppCompatActivity {
             createCalc(time);
             res.setText("");
             rvRes.smoothScrollToPosition(adapter.getItemCount());
+            if (mAuth.getCurrentUser() != null) {
+                setPoints();
+            }
             return true;
         }else{
             //Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
@@ -190,5 +205,27 @@ public class Calculos extends AppCompatActivity {
     public int randomInt(int range){
         int random = new Random().nextInt(range)+1;
         return random;
+    }
+    public void setPoints(){
+        double points = 0;
+        switch (calcType){
+            case "multiplicacion":
+                points = (110-time)*0.3;
+                break;
+            case "division":
+                points = (110-time)*0.2;
+                break;
+            default:
+                points = (110-time)*0.1;
+                break;
+        }
+        final double finalPoints = points;
+        db.collection("usersPoints").document(mAuth.getUid()).update("points", FieldValue.increment(points));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        myTimer.cancel();
     }
 }
