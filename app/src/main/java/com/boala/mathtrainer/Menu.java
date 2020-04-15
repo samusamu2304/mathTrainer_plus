@@ -7,14 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -23,12 +21,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Menu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String EXTRA_STRING = "operacion";
@@ -40,6 +43,8 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     private NavigationView navigationView;
+    private TextView hName, hMail;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +62,13 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         seekTime = findViewById(R.id.seekTime);
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.navigation_view);
+        hName = navigationView.getHeaderView(0).findViewById(R.id.hName);
+        hMail = navigationView.getHeaderView(0).findViewById(R.id.hMail);
         setNavigationViewListener();
         if (mAuth.getCurrentUser() == null){
-            navigationView.getMenu().findItem(R.id.signOut).setVisible(false);
-            navigationView.getMenu().findItem(R.id.signIn).setVisible(true);
+            loggedOutUI();
         }else{
-            navigationView.getMenu().findItem(R.id.signIn).setVisible(false);
-            navigationView.getMenu().findItem(R.id.signOut).setVisible(true);
+            loggedInUI();
         }
         seekTime.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
@@ -118,11 +123,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }
+
     public void signIn(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
@@ -141,10 +142,10 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                 AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        navigationView.getMenu().findItem(R.id.signOut).setVisible(false);
-                        navigationView.getMenu().findItem(R.id.signIn).setVisible(true);
+                        loggedOutUI();
                     }
                 });
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -159,11 +160,49 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                navigationView.getMenu().findItem(R.id.signIn).setVisible(false);
-                navigationView.getMenu().findItem(R.id.signOut).setVisible(true);
+                loggedInUI();
             }else{
 
             }
         }
     }
+    public void loggedInUI(){
+        navigationView.getMenu().findItem(R.id.signIn).setVisible(false);
+        navigationView.getMenu().findItem(R.id.signOut).setVisible(true);
+        hName.setText(mAuth.getCurrentUser().getDisplayName());
+        updatePoints();
+    }
+    public void loggedOutUI(){
+        navigationView.getMenu().findItem(R.id.signOut).setVisible(false);
+        navigationView.getMenu().findItem(R.id.signIn).setVisible(true);
+        hName.setText("");
+        hMail.setText("");
+    }
+    public void updatePoints(){
+        final double[] points = {0};
+        db.collection("usersPoints").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        points[0] = document.getDouble("points");
+                        hMail.setText("points: "+ points[0]);
+                    }else{
+                        Map<String,Object> userPoints = new HashMap<>();
+                        userPoints.put("name",mAuth.getCurrentUser().getDisplayName());
+                        userPoints.put("points", 0);
+                        db.collection("usersPoints").document(mAuth.getUid()).set(userPoints);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePoints();
+    }
 }
+
