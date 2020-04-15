@@ -188,7 +188,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             points[0] = document.getDouble("points");
-                            hMail.setText("points: " + points[0]);
+                            hMail.setText("points: " + (int) points[0]);
                         } else {
                             Map<String, Object> userPoints = new HashMap<>();
                             userPoints.put("name", mAuth.getCurrentUser().getDisplayName());
