@@ -207,16 +207,16 @@ public class Calculos extends AppCompatActivity {
         return random;
     }
     public void setPoints(){
-        double points = 0;
+        int points = 0;
         switch (calcType){
             case "multiplicacion":
-                points = (110-time)*0.3;
+                points = (int) ((110-time)*0.3);
                 break;
             case "division":
-                points = (110-time)*0.2;
+                points = (int) ((110-time)*0.2);
                 break;
             default:
-                points = (110-time)*0.1;
+                points = (int) ((110-time)*0.1);
                 break;
         }
         final double finalPoints = points;
