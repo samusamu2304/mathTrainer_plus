@@ -180,23 +180,25 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
     }
     public void updatePoints(){
         final double[] points = {0};
-        db.collection("usersPoints").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        points[0] = document.getDouble("points");
-                        hMail.setText("points: "+ points[0]);
-                    }else{
-                        Map<String,Object> userPoints = new HashMap<>();
-                        userPoints.put("name",mAuth.getCurrentUser().getDisplayName());
-                        userPoints.put("points", 0);
-                        db.collection("usersPoints").document(mAuth.getUid()).set(userPoints);
+        if (mAuth.getCurrentUser() != null) {
+            db.collection("usersPoints").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            points[0] = document.getDouble("points");
+                            hMail.setText("points: " + points[0]);
+                        } else {
+                            Map<String, Object> userPoints = new HashMap<>();
+                            userPoints.put("name", mAuth.getCurrentUser().getDisplayName());
+                            userPoints.put("points", 0);
+                            db.collection("usersPoints").document(mAuth.getUid()).set(userPoints);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
