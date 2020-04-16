@@ -9,4 +9,8 @@
         android:title="Sign out"
         android:id="@+id/signOut"
         />
+    <item
+        android:title="Ranking"
+        android:id="@+id/rankingBt"
+        />
 </menu>

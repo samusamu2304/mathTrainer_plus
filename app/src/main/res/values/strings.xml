@@ -9,4 +9,7 @@
 
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+    <string name="Points">Points</string>
+    <string name="name">Name</string>
+    <string name="position">Position</string>
 </resources>

@@ -129,7 +129,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
     }
 
-
+    //Asignacion de acciones a cada boton del drawer
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -145,6 +145,10 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                         loggedOutUI();
                     }
                 });
+                break;
+            case R.id.rankingBt:
+                Intent intent = new Intent(this, Ranking.class);
+                startActivity(intent);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -190,10 +194,8 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                             points[0] = document.getDouble("points");
                             hMail.setText("points: " + (int) points[0]);
                         } else {
-                            Map<String, Object> userPoints = new HashMap<>();
-                            userPoints.put("name", mAuth.getCurrentUser().getDisplayName());
-                            userPoints.put("points", 0);
-                            db.collection("usersPoints").document(mAuth.getUid()).set(userPoints);
+                            UsersPoints usersPoints = new UsersPoints(mAuth.getCurrentUser().getDisplayName(),0);
+                            db.collection("usersPoints").document(mAuth.getUid()).set(usersPoints);
                         }
                     }
                 }
