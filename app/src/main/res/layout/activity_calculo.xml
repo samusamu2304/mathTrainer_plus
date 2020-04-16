@@ -65,7 +65,7 @@
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:background="@drawable/effect_ripple"
-                android:src="@drawable/refresh"
+                android:src="@drawable/equal"
                 style="@style/Widget.AppCompat.Button.Borderless" />
         </LinearLayout>
 
@@ -94,6 +94,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="4dp"
+        android:layout_weight="1"
         />
 
 
