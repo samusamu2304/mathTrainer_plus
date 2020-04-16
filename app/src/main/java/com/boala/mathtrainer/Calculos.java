@@ -1,43 +1,32 @@
 package com.boala.mathtrainer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Calculos extends AppCompatActivity {
     private TextView calc;
     private int a,b,c;
-    private ImageButton regen;
+    private ImageButton check;
     private EditText res;
     private String calcType;
     private ProgressBar timer;
@@ -59,17 +48,16 @@ public class Calculos extends AppCompatActivity {
         calcType = intent.getStringExtra(Menu.EXTRA_STRING);
         time = intent.getIntExtra("time",10);
         calc = findViewById(R.id.calc);
-        regen = findViewById(R.id.regenB);
+        check = findViewById(R.id.regenB);
         res = findViewById(R.id.res);
         timer = findViewById(R.id.timer);
         rvRes = findViewById(R.id.rvRes);
         timer.setMax(1000);
         res.requestFocus();
-        regen.setOnClickListener(new View.OnClickListener() {
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                res.setText("");
-                createCalc(time);
+                checkRes();
             }
         });
         res.setOnEditorActionListener(new EditText.OnEditorActionListener() {

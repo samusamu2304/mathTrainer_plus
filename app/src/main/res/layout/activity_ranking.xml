@@ -29,7 +29,6 @@
             android:id="@+id/positionLabel"
             android:text="@string/position"
             android:layout_marginEnd="10dp"
-            android:textColor=""
             />
         <TextView
             android:layout_width="wrap_content"
