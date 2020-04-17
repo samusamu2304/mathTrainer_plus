@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Calculos">
+    tools:context=".Calculos"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:background="@drawable/effect_ripple"
-                android:src="@drawable/equal"
+                android:src="@drawable/check_bold"
                 style="@style/Widget.AppCompat.Button.Borderless" />
         </LinearLayout>
 
@@ -87,7 +88,6 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         />
     </androidx.cardview.widget.CardView>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRes"
         android:layout_width="match_parent"
@@ -96,6 +96,7 @@
         android:paddingBottom="4dp"
         android:layout_weight="1"
         />
+
 
 
 </LinearLayout>

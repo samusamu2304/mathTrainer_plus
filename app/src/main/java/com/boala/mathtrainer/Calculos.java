@@ -35,6 +35,7 @@ public class Calculos extends AppCompatActivity {
     private ResAdapter adapter;
     private ArrayList<Result> resData;
     private int time = 0;
+    private int timeLeft = 0;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -102,16 +103,16 @@ public class Calculos extends AppCompatActivity {
                 break;
             case "multiplicacion":
                 a = randomInt(100);
-                b = randomInt(10);
+                b = randomInt(9)+1;
                 c = a*b;
                 calc.setText(a+"x"+b+"=");
                 break;
             case "division":
                 do {
-                    a = randomInt(100);
-                    b = randomInt(10);
+                    a = randomInt(90)+10;
+                    b = randomInt(9)+1;
                     c = a/b;
-                }while (b>a||a%b!=0);
+                }while (a%b!=0);
                 calc.setText(a+"/"+b+"=");
                 break;
         }
@@ -135,12 +136,12 @@ public class Calculos extends AppCompatActivity {
             result = new Result(calc.getText()+(res.getText().toString()),true);
             resData.add(result);
             adapter.notifyDataSetChanged();
-            createCalc(time);
-            res.setText("");
-            rvRes.smoothScrollToPosition(adapter.getItemCount());
             if (mAuth.getCurrentUser() != null) {
                 setPoints();
             }
+            createCalc(time);
+            res.setText("");
+            rvRes.smoothScrollToPosition(adapter.getItemCount());
             return true;
         }else{
             //Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
@@ -179,6 +180,7 @@ public class Calculos extends AppCompatActivity {
         public void onTick(long l) {
             int progress = (int) (l/aux);
             timer.setProgress(progress);
+            timeLeft = (int) (l/1000);
         }
 
         @Override
@@ -198,13 +200,13 @@ public class Calculos extends AppCompatActivity {
         int points = 0;
         switch (calcType){
             case "multiplicacion":
-                points = (int) ((110-time)*0.3);
+                points = ((110-(time-timeLeft)) *3);
                 break;
             case "division":
-                points = (int) ((110-time)*0.2);
+                points = ((110-(time-timeLeft)) *2);
                 break;
             default:
-                points = (int) ((110-time)*0.1);
+                points = 110-(time-timeLeft);
                 break;
         }
         final double finalPoints = points;
