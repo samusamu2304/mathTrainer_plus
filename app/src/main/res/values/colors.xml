@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#7D30EC</color>
+    <color name="colorPrimaryDark">#5B30BA</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="salmon">#FA8072</color>
     <color name="khaki">#F0E68C</color>
     <color name="mediumaquamarine">#66CDAA</color>
     <color name="skyblue">#87CEEB</color>
+    <color name="textDefault">#1C1C1C</color>
 </resources>
