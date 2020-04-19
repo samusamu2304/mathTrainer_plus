@@ -11,12 +11,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+        >
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark"/>
+            />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -43,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calc"
-                android:textColor="@android:color/black"
                 android:textSize="48sp"
                 />
 
@@ -52,11 +51,10 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="?colorBackgroundFloating"
                 android:inputType="numberDecimal|numberSigned"
-                android:textColor="@android:color/black"
                 android:textSize="48sp"
                 android:imeOptions="actionDone"
+                android:background="@null"
                 />
             <ImageButton
                 android:id="@+id/regenB"
