@@ -4,13 +4,16 @@
     <item
         android:title="Sign in"
         android:id="@+id/signIn"
+        android:icon="@drawable/login"
         />
     <item
-        android:title="Sign out"
+        android:title="Log out"
         android:id="@+id/signOut"
+        android:icon="@drawable/logout"
         />
     <item
         android:title="Ranking"
         android:id="@+id/rankingBt"
+        android:icon="@drawable/trophy"
         />
 </menu>
