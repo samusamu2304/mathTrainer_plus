@@ -29,6 +29,7 @@
             android:id="@+id/positionLabel"
             android:text="@string/position"
             android:layout_marginEnd="10dp"
+            android:textColor="#BFBFBF"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -36,12 +37,14 @@
             android:id="@+id/nameLabel"
             android:layout_weight="1"
             android:text="@string/name"
+            android:textColor="#BFBFBF"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rankLabel"
             android:text="@string/Points"
+            android:textColor="#BFBFBF"
             />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

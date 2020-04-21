@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -23,27 +26,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Menu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String EXTRA_STRING = "operacion";
     private static final int RC_SIGN_IN = 69;
-    private int time = 10;;
+    private int lvl = 1;;
     private ImageButton suma, resta, multiplicacion, division;
-    private IndicatorSeekBar seekTime;
+    private IndicatorSeekBar seekLvl;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     private NavigationView navigationView;
     private TextView hName, hMail;
+    private LinearLayout setBt;
+    private SharedPreferences sharedPrefs;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +61,23 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         resta = findViewById(R.id.resta);
         multiplicacion = findViewById(R.id.multiplicacion);
         division = findViewById(R.id.division);
-        seekTime = findViewById(R.id.seekTime);
+        seekLvl = findViewById(R.id.seekTime);
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.navigation_view);
         hName = navigationView.getHeaderView(0).findViewById(R.id.hName);
         hMail = navigationView.getHeaderView(0).findViewById(R.id.hMail);
+        setBt = findViewById(R.id.setBt);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setNavigationViewListener();
         if (mAuth.getCurrentUser() == null){
             loggedOutUI();
         }else{
             loggedInUI();
         }
-        seekTime.setOnSeekChangeListener(new OnSeekChangeListener() {
+        seekLvl.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
             public void onSeeking(SeekParams seekParams) {
-                time = seekParams.progress;
+                lvl = seekParams.progress;
             }
 
             @Override
@@ -85,43 +89,53 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
             }
         });
-        final Intent intent = new Intent(this, Calculos.class);
+        final Intent intentCalc = new Intent(this, Calculos.class);
+        final Intent intent = new Intent(this, SettingsActivity.class);
         suma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra(EXTRA_STRING,"suma");
-                intent.putExtra("time",time);
-                startActivity(intent);
+                intentCalc.putExtra(EXTRA_STRING,"suma");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
 
             }
         });
         resta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra(EXTRA_STRING,"resta");
-                intent.putExtra("time",time);
-                startActivity(intent);
+                intentCalc.putExtra(EXTRA_STRING,"resta");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
 
             }
         });
         multiplicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra(EXTRA_STRING,"multiplicacion");
-                intent.putExtra("time",time);
-                startActivity(intent);
+                intentCalc.putExtra(EXTRA_STRING,"multiplicacion");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
 
             }
         });
         division.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra(EXTRA_STRING,"division");
-                intent.putExtra("time",time);
-                startActivity(intent);
+                intentCalc.putExtra(EXTRA_STRING,"division");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
 
             }
         });
+        setBt.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
+
     }
 
     public void signIn(){

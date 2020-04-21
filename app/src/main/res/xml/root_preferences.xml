@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<ListPreference
+    app:key="Theme"
+    app:title="Change Theme"
+    app:entries="@array/themeEntries"
+    app:entryValues="@array/themeValues"
+    app:icon="@drawable/theme_light_dark"
+    >
+</ListPreference>
+
+
+</PreferenceScreen>
