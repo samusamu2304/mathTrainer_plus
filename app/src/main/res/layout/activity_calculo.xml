@@ -83,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:max="1000"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         />
     </androidx.cardview.widget.CardView>
