@@ -200,7 +200,6 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         hMail.setText("");
     }
     public void updatePoints(){
-        final double[] points = {0};
         if (mAuth.getCurrentUser() != null) {
             db.collection("usersPoints").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -208,8 +207,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            points[0] = document.getDouble("points");
-                            hMail.setText("points: " + (int) points[0]);
+                            hMail.setText("points: " +  document.getDouble("points").intValue());
                         } else {
                             UsersPoints usersPoints = new UsersPoints(mAuth.getCurrentUser().getDisplayName(),0,true);
                             db.collection("usersPoints").document(mAuth.getUid()).set(usersPoints);
