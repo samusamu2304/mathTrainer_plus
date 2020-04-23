@@ -5,13 +5,15 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 public class UsersPoints {
     private String name;
     private double points;
+    private boolean ranked;
 
     public UsersPoints() {
     }
 
-    public UsersPoints(String name, double points) {
+    public UsersPoints(String name, double points, boolean ranked) {
         this.name = name;
         this.points = points;
+        this.ranked = ranked;
     }
 
     public String getName() {
@@ -28,5 +30,13 @@ public class UsersPoints {
 
     public void setPoints(double points) {
         this.points = points;
+    }
+
+    public boolean isRanked() {
+        return ranked;
+    }
+
+    public void setRanked(boolean ranked) {
+        this.ranked = ranked;
     }
 }

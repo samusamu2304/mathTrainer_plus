@@ -41,7 +41,7 @@ public class Ranking extends AppCompatActivity {
 
     }
     private void getRanking() {
-        Query query = db.collection("usersPoints").orderBy("points", Query.Direction.DESCENDING);
+        Query query = db.collection("usersPoints").whereEqualTo("ranked",true).orderBy("points", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<UsersPoints> ranking = new FirestoreRecyclerOptions.Builder<UsersPoints>().setQuery(query, UsersPoints.class).build();
         adapter = new FirestoreRecyclerAdapter<UsersPoints, UsersHolder>(ranking) {
 

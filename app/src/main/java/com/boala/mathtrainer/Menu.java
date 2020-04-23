@@ -22,6 +22,8 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -73,6 +75,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             loggedOutUI();
         }else{
             loggedInUI();
+
         }
         seekLvl.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
@@ -208,7 +211,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                             points[0] = document.getDouble("points");
                             hMail.setText("points: " + (int) points[0]);
                         } else {
-                            UsersPoints usersPoints = new UsersPoints(mAuth.getCurrentUser().getDisplayName(),0);
+                            UsersPoints usersPoints = new UsersPoints(mAuth.getCurrentUser().getDisplayName(),0,true);
                             db.collection("usersPoints").document(mAuth.getUid()).set(usersPoints);
                         }
                     }
