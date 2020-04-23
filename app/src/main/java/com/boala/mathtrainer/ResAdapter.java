@@ -17,7 +17,7 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ResHolder> {
     private Context context;
     private ArrayList<Result> content;
 
-    public ResAdapter(Context context, ArrayList<Result> content){
+    ResAdapter(Context context, ArrayList<Result> content){
         this.context = context;
         this.content = content;
     }
@@ -41,21 +41,23 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ResHolder> {
         return content.size();
     }
 
-    public class ResHolder extends RecyclerView.ViewHolder{
-        private TextView tv;
+    class ResHolder extends RecyclerView.ViewHolder{
+        private TextView tv,tvSol;
 
-        public ResHolder(@NonNull View itemView) {
+        ResHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tvRes);
+            tvSol = itemView.findViewById(R.id.tvSol);
         }
 
-        public void setData(Result data) {
+        void setData(Result data) {
             tv.setText(data.getText());
             if (data.isCorrect()) {
                 tv.setTextColor(Color.parseColor("#66bb6a"));
             }else{
                 tv.setTextColor(Color.parseColor("#ef5350"));
             }
+            tvSol.setText(data.getTextCorrect());
         }
     }
 }

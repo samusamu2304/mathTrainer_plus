@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -217,12 +218,12 @@ public class Calculos extends AppCompatActivity {
         try {
             resV = Integer.parseInt(res.getText().toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("error","empty result");
             resV = 0;
         }
         if (resV == c) {
             //Toast.makeText(getApplicationContext(),"correcto",Toast.LENGTH_SHORT).show();
-            result = new Result(calc.getText() + (res.getText().toString()), true);
+            result = new Result(calc.getText() + (res.getText().toString()),"", true);
             resData.add(result);
             adapter.notifyDataSetChanged();
             if (mAuth.getCurrentUser() != null) {
@@ -244,7 +245,7 @@ public class Calculos extends AppCompatActivity {
             if (res.getText().toString().equals("")) {
                 res.setText("0");
             }
-            result = new Result(calc.getText() + (res.getText().toString()), false);
+            result = new Result(calc.getText() + (res.getText().toString()),calc.getText()+String.valueOf(c), false);
             res.setText("");
             resData.add(result);
             adapter.notifyDataSetChanged();
@@ -260,12 +261,11 @@ public class Calculos extends AppCompatActivity {
         finish();
         return true;
     }
-
     //clase temporizador
-    public class MyTimer extends CountDownTimer {
+    public class MyTimer extends CountDownTimerPausable {
         int aux;//variable auxiliar para poder asignar el tiempo
 
-        public MyTimer(long millisInFuture, long countDownInterval) {
+        MyTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture * 1000, countDownInterval);
             aux = (int) millisInFuture;
         }
@@ -288,8 +288,7 @@ public class Calculos extends AppCompatActivity {
 
     //generador de numeros aleatorios
     public int randomInt(int range) {
-        int random = new Random().nextInt(range) + 1;
-        return random;
+        return new Random().nextInt(range) + 1;
     }
 
     public void setPoints() {
@@ -310,8 +309,14 @@ public class Calculos extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        myTimer.cancel();
+    protected void onResume() {
+        super.onResume();
+        myTimer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        myTimer.pause();
     }
 }

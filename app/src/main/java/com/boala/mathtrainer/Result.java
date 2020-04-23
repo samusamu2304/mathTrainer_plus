@@ -1,15 +1,16 @@
 package com.boala.mathtrainer;
 
 public class Result {
-    private String text;
+    private String text,textCorrect;
     private boolean isCorrect;
 
-    public Result(String text, boolean isCorrect) {
+    Result(String text, String textCorrect, boolean isCorrect) {
         this.text = text;
         this.isCorrect = isCorrect;
+        this.textCorrect = textCorrect;
     }
 
-    public String getText() {
+    String getText() {
         return text;
     }
 
@@ -17,7 +18,15 @@ public class Result {
         this.text = text;
     }
 
-    public boolean isCorrect() {
+    String getTextCorrect() {
+        return textCorrect;
+    }
+
+    public void setTextCorrect(String textCorrect) {
+        this.textCorrect = textCorrect;
+    }
+
+    boolean isCorrect() {
         return isCorrect;
     }
 
