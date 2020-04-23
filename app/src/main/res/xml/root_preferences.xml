@@ -1,13 +1,19 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<ListPreference
-    app:key="Theme"
-    app:title="Change Theme"
-    app:entries="@array/themeEntries"
-    app:entryValues="@array/themeValues"
-    app:icon="@drawable/theme_light_dark"
-    >
-</ListPreference>
+    <ListPreference
+        app:key="Theme"
+        app:title="Change Theme"
+        app:entries="@array/themeEntries"
+        app:entryValues="@array/themeValues"
+        app:icon="@drawable/theme_light_dark"
+        >
+    </ListPreference>
+    <SwitchPreference
+        app:title="@string/removeFromRank"
+        app:key="remRank"
+        app:icon="@drawable/account_remove"
+        app:defaultValue="true"
+        />
 
 
 </PreferenceScreen>
