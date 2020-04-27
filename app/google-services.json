@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "135698107486-8v4aa081mltmirsd9qhc66ojqh7kl5i3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boala.mathtrainer",
+            "certificate_hash": "97490ab8d7b370ab43a3a6475dc4402c19bb7571"
+          }
+        },
+        {
+          "client_id": "135698107486-qgc0v1s60kppedt63k7m6ag48a8iocoa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boala.mathtrainer",
+            "certificate_hash": "39526b4596df4cf6cedd8028527dd8105afff896"
+          }
+        },
+        {
           "client_id": "135698107486-0dscqqift5lqhj004dvsfqgdrj45nt8v.apps.googleusercontent.com",
           "client_type": 3
         }

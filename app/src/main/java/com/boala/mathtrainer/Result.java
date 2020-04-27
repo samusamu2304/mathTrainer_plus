@@ -3,6 +3,7 @@ package com.boala.mathtrainer;
 public class Result {
     private String text,textCorrect;
     private boolean isCorrect;
+    private double points;
 
     Result(String text, String textCorrect, boolean isCorrect) {
         this.text = text;
