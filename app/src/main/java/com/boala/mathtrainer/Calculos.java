@@ -224,11 +224,12 @@ public class Calculos extends AppCompatActivity {
         if (resV == c) {
             //Toast.makeText(getApplicationContext(),"correcto",Toast.LENGTH_SHORT).show();
             result = new Result(calc.getText() + (res.getText().toString()),"", true);
-            resData.add(result);
-            adapter.notifyDataSetChanged();
             if (mAuth.getCurrentUser() != null) {
                 setPoints();
+                result.setTextCorrect("+"+points+"pts");
             }
+            resData.add(result);
+            adapter.notifyDataSetChanged();
             createCalc(time);
             res.setText("");
             rvRes.smoothScrollToPosition(adapter.getItemCount());
@@ -291,8 +292,8 @@ public class Calculos extends AppCompatActivity {
         return new Random().nextInt(range) + 1;
     }
 
+    int points = 0;
     public void setPoints() {
-        int points = 0;
         switch (calcType) {
             case "multiplicacion":
                 points = (110 - (time - timeLeft)) * 3 * lvl;
