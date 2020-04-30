@@ -52,8 +52,8 @@ public class SettingsActivity extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             switch (s){
-                case "Theme":
-                    switch (sharedPreferences.getString("Theme","auto")){
+                case "theme":
+                    switch (sharedPreferences.getString("theme","auto")){
                         case "light":
                             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                             break;

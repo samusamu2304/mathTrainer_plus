@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auto">Automático</string>
+    <string name="light">Claro</string>
+    <string name="dark">Oscuro</string>
+</resources>

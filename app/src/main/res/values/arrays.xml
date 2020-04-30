@@ -10,13 +10,16 @@
         <item>reply_all</item>
     </string-array>
     <string-array name="themeEntries" >
-        <item>Auto</item>
-        <item>light</item>
-        <item>dark</item>
+        <item>@string/auto</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
     </string-array>
     <string-array name="themeValues" >
         <item>auto</item>
         <item>light</item>
         <item>dark</item>
     </string-array>
+    <string name="auto">Auto</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>
