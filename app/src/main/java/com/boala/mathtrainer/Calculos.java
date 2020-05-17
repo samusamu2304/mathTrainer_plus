@@ -1,5 +1,6 @@
 package com.boala.mathtrainer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +18,10 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -292,6 +296,7 @@ public class Calculos extends AppCompatActivity {
         return new Random().nextInt(range) + 1;
     }
 
+    //Asigna los puntos al usuario
     int points = 0;
     public void setPoints() {
         switch (calcType) {
@@ -307,6 +312,7 @@ public class Calculos extends AppCompatActivity {
         }
         final double finalPoints = points;
         db.collection("usersPoints").document(mAuth.getUid()).update("points", FieldValue.increment(points));
+        db.collection("stats").document(mAuth.getUid()).update(calcType+lvl,FieldValue.increment(1));
     }
 
     @Override

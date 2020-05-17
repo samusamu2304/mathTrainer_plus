@@ -211,6 +211,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
                         } else {
                             UsersPoints usersPoints = new UsersPoints(mAuth.getCurrentUser().getDisplayName(),0,true);
                             db.collection("usersPoints").document(mAuth.getUid()).set(usersPoints);
+                            db.collection("stats").document(mAuth.getUid()).set(new MathStats());
                         }
                     }
                 }
