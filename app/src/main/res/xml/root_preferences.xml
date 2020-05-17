@@ -11,8 +11,13 @@
     <SwitchPreference
         app:title="@string/removeFromRank"
         app:key="remRank"
-        app:icon="@drawable/account_remove"
+        app:icon="@drawable/trophy"
         app:defaultValue="true"
+        />
+    <EditTextPreference
+        android:title="@string/changeUserName"
+        app:key="changeUserN"
+        app:icon="@drawable/account_edit"
         />
 
 
