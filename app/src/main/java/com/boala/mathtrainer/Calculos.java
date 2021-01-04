@@ -89,6 +89,102 @@ public class Calculos extends AppCompatActivity {
         rvRes.setAdapter(adapter);
     }
 
+    void suma(int lvl){
+        switch (lvl){
+            case 1:
+            case 2:
+                a = randomInt(10);
+                b = randomInt(10);
+                break;
+            case 3:
+            case 4:
+                a = randomInt(100);
+                b = randomInt(100);
+                break;
+            case 5:
+                a = randomInt(1000);
+                b = randomInt(1000);
+                break;
+
+        }
+        c = a + b;
+        calc.setText(a + "+" + b + "=");
+    }
+    void resta(int lvl){
+        switch (lvl){
+            case 1:
+            case 2:
+                a = randomInt(10);
+                b = randomInt(10);
+                break;
+            case 3:
+            case 4:
+                a = randomInt(100);
+                b = randomInt(100);
+                break;
+            case 5:
+                a = randomInt(1000);
+                b = randomInt(1000);
+                break;
+
+        }
+        if (a == b) {
+            a++;
+        }
+        c = a - b;
+        calc.setText(a + "-" + b + "=");
+    }
+    void multiplicacion(int lvl){
+        switch (lvl){
+            case 1:
+            case 2:
+                a = randomInt(100);
+                b = randomInt(9) + 1;
+                break;
+            case 3:
+            case 4:
+                a = randomInt(100);
+                b = randomInt(90) + 1;
+                break;
+            case 5:
+                a = randomInt(1000);
+                b = randomInt(90) + 1;
+                break;
+
+        }
+
+        c = a * b;
+        calc.setText(a + "x" + b + "=");
+    }
+    void division(int lvl){
+        switch (lvl){
+            case 1:
+            case 2:
+                do {
+                    a = randomInt(90) + 10;
+                    b = randomInt(9) + 1;
+                    c = a / b;
+                } while (a % b != 0);
+                break;
+            case 3:
+            case 4:
+                do {
+                    a = randomInt(900) + 10;
+                    b = randomInt(90) + 1;
+                    c = a / b;
+                } while (a % b != 0);
+                break;
+            case 5:
+                a = randomInt(900) + 10;
+                b = randomInt(90) + 1;
+                c = a / b;
+                break;
+
+        }
+
+        calc.setText(a + "/" + b + "=");
+    }
+
     //creacion de los calculos segun la opcion seleccionada
     void createCalc(long time) {
         if (myTimer != null) {
@@ -96,99 +192,34 @@ public class Calculos extends AppCompatActivity {
         }
         switch (calcType) {
             case "suma":
-                switch (lvl){
-                    case 1:
-                    case 2:
-                        a = randomInt(10);
-                        b = randomInt(10);
-                        break;
-                    case 3:
-                    case 4:
-                        a = randomInt(100);
-                        b = randomInt(100);
-                        break;
-                    case 5:
-                        a = randomInt(1000);
-                        b = randomInt(1000);
-                        break;
-
-                }
-                c = a + b;
-                calc.setText(a + "+" + b + "=");
+                suma(lvl);
                 break;
             case "resta":
-                switch (lvl){
-                    case 1:
-                    case 2:
-                        a = randomInt(10);
-                        b = randomInt(10);
-                        break;
-                    case 3:
-                    case 4:
-                        a = randomInt(100);
-                        b = randomInt(100);
-                        break;
-                    case 5:
-                        a = randomInt(1000);
-                        b = randomInt(1000);
-                        break;
-
-                }
-                if (a == b) {
-                    a++;
-                }
-                c = a - b;
-                calc.setText(a + "-" + b + "=");
+                resta(lvl);
                 break;
             case "multiplicacion":
-                switch (lvl){
-                    case 1:
-                    case 2:
-                        a = randomInt(100);
-                        b = randomInt(9) + 1;
-                        break;
-                    case 3:
-                    case 4:
-                        a = randomInt(100);
-                        b = randomInt(90) + 1;
-                        break;
-                    case 5:
-                        a = randomInt(1000);
-                        b = randomInt(90) + 1;
-                        break;
-
-                }
-
-                c = a * b;
-                calc.setText(a + "x" + b + "=");
+                multiplicacion(lvl);
                 break;
             case "division":
-                switch (lvl){
-                    case 1:
-                    case 2:
-                        do {
-                            a = randomInt(90) + 10;
-                            b = randomInt(9) + 1;
-                            c = a / b;
-                        } while (a % b != 0);
-                        break;
-                    case 3:
-                    case 4:
-                        do {
-                            a = randomInt(900) + 10;
-                            b = randomInt(90) + 1;
-                            c = a / b;
-                        } while (a % b != 0);
-                        break;
-                    case 5:
-                        a = randomInt(900) + 10;
-                        b = randomInt(90) + 1;
-                        c = a / b;
-                        break;
+                division(lvl);
+                break;
+            case "random":
 
+                if (totalPoints < 1000){
+                    lvl = 1;
+                } else if (totalPoints < 2500){
+                    lvl = 2;
+                } else if (totalPoints < 5000){
+                    lvl = 3;
+                } else{
+                    lvl = 4;
                 }
-
-                calc.setText(a + "/" + b + "=");
+                switch (randomInt(4)){
+                    case 1: suma(lvl); break;
+                    case 2: resta(lvl); break;
+                    case 3: multiplicacion(lvl); break;
+                    case 4: division(lvl); break;
+                }
                 break;
         }
         timer.setProgress(1000);
@@ -298,6 +329,7 @@ public class Calculos extends AppCompatActivity {
 
     //Asigna los puntos al usuario
     int points = 0;
+    int totalPoints = 0;
     public void setPoints() {
         switch (calcType) {
             case "multiplicacion":
@@ -310,7 +342,7 @@ public class Calculos extends AppCompatActivity {
                 points = (110 - (time - timeLeft)) * lvl;
                 break;
         }
-        final double finalPoints = points;
+        totalPoints += points;
         db.collection("usersPoints").document(mAuth.getUid()).update("points", FieldValue.increment(points));
         db.collection("stats").document(mAuth.getUid()).update(calcType+lvl,FieldValue.increment(1));
     }

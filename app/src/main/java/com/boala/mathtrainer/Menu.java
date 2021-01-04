@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
     public static final String EXTRA_STRING = "operacion";
     private static final int RC_SIGN_IN = 69;
     private int lvl = 1;;
-    private ImageButton suma, resta, multiplicacion, division;
+    private ImageButton suma, resta, multiplicacion, division, random;
     private IndicatorSeekBar seekLvl;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -63,6 +63,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         resta = findViewById(R.id.resta);
         multiplicacion = findViewById(R.id.multiplicacion);
         division = findViewById(R.id.division);
+        random = findViewById(R.id.random);
         seekLvl = findViewById(R.id.seekTime);
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.navigation_view);
@@ -125,6 +126,15 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 intentCalc.putExtra(EXTRA_STRING,"division");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
+
+            }
+        });
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intentCalc.putExtra(EXTRA_STRING,"random");
                 intentCalc.putExtra("lvl", lvl);
                 startActivity(intentCalc);
 

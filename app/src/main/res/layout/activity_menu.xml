@@ -24,17 +24,20 @@
                 android:layout_height="wrap_content"
                 />
         </com.google.android.material.appbar.AppBarLayout>
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:stretchColumns="*"
+            android:shrinkColumns="*"
             >
-            <LinearLayout
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 >
                 <ImageButton
                     android:id="@+id/suma"
@@ -47,8 +50,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_weight="1"
+                    android:layout_span="1"
                     />
-
                 <ImageButton
                     android:id="@+id/resta"
                     android:layout_width="0dp"
@@ -60,11 +63,13 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_weight="1"
+                    android:layout_span="1"
                     />
-            </LinearLayout>
-            <LinearLayout
+            </TableRow>
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 >
                 <ImageButton
                     android:id="@+id/multiplicacion"
@@ -77,8 +82,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_weight="1"
+                    android:layout_span="1"
                     />
-
                 <ImageButton
                     android:id="@+id/division"
                     android:layout_width="0dp"
@@ -90,10 +95,29 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_weight="1"
+                    android:layout_span="1"
                     />
-            </LinearLayout>
-        </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/random"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginVertical="4dp"
+                    android:src="@drawable/shuffle"
+                    android:backgroundTint="#CF87DF"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:layout_span="2"
+                    />
+            </TableRow>
 
+        </TableLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -166,7 +190,7 @@
                 android:text="@string/settings"
                 android:textStyle="bold"
                 android:textColor="@color/textDefault"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:layout_marginStart="25dp"
                 />
 
