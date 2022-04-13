@@ -1,37 +1,30 @@
 package com.boala.mathtrainer;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Calculos extends AppCompatActivity {
-    private TextView calc;
+    private TextView calc, binType;
     private int a, b, c;
-    private ImageButton check;
     private EditText res;
     private String calcType;
     private ProgressBar timer;
@@ -42,42 +35,35 @@ public class Calculos extends AppCompatActivity {
     private int time = 10;
     private int lvl = 1;
     private int timeLeft = 0;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         calcType = intent.getStringExtra(Menu.EXTRA_STRING);
         getSupportActionBar().setTitle(getResources().getIdentifier(calcType, "string", getPackageName()));
         lvl = intent.getIntExtra("lvl", 1);
         assignTime();
+        binType = findViewById(R.id.binType);
         calc = findViewById(R.id.calc);
-        check = findViewById(R.id.regenB);
+        ImageButton check = findViewById(R.id.regenB);
         res = findViewById(R.id.res);
         timer = findViewById(R.id.timer);
         rvRes = findViewById(R.id.rvRes);
         timer.setMax(1000);
         res.requestFocus();
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        check.setOnClickListener(view -> checkRes());
+        res.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_DONE) {
                 checkRes();
+                return true;
             }
-        });
-        res.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_DONE) {
-                    checkRes();
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
         createCalc(time);
         resData = new ArrayList<>();
@@ -184,6 +170,22 @@ public class Calculos extends AppCompatActivity {
 
         calc.setText(a + "/" + b + "=");
     }
+    void binary(){
+        c = new Random().nextInt(127 * 2) - 127;
+        int type = randomInt(3);
+        switch (type){
+            case 1:
+                calc.setText(toC1(c) + " = ");
+                break;
+            case 2:
+                calc.setText(toC2(c) + " = ");
+                break;
+            case 3:
+                calc.setText(toEX(c) + " = ");
+                break;
+        }
+
+    }
 
     //creacion de los calculos segun la opcion seleccionada
     void createCalc(long time) {
@@ -220,6 +222,9 @@ public class Calculos extends AppCompatActivity {
                     case 3: multiplicacion(lvl); break;
                     case 4: division(lvl); break;
                 }
+                break;
+            case "binary":
+                binary();
                 break;
         }
         timer.setProgress(1000);
@@ -345,6 +350,81 @@ public class Calculos extends AppCompatActivity {
         totalPoints += points;
         db.collection("usersPoints").document(mAuth.getUid()).update("points", FieldValue.increment(points));
         db.collection("stats").document(mAuth.getUid()).update(calcType+lvl,FieldValue.increment(1));
+    }
+
+    String toBinary(int n){
+        int back = n;
+        String bin = "";
+        n = Math.abs(n);
+        do {
+            bin = n%2 + bin;
+            n /= 2;
+        }while(n > 0);
+        bin = "00000000".substring(0, 8 - bin.length()) + bin;
+        return bin;
+    }
+    String toSM(int n){
+        binType.setText("SM");
+        String bin = toBinary(n);
+        if (n < 0){
+            bin = "1" + bin.substring(1, bin.length());
+        }
+        return bin;
+    }
+    String toC1(int n){
+        binType.setText("C1");
+        String bin = toBinary(n);
+        if (n < 0){
+            char[] binArr = bin.toCharArray();
+            bin = "";
+            for (int i = 0; i < binArr.length; i++){
+                if (binArr[i] == '0'){
+                    bin += '1';
+                }else{
+                    bin += '0';
+                }
+            }
+        }
+        return bin;
+    }
+    String toC2(int n){
+        binType.setText("C2");
+        String bin = toBinary(n);
+        if (n < 0){
+            char[] binArr = bin.toCharArray();
+            bin = "";
+            for (int i = binArr.length -1; i >= 0; i--){
+                if (binArr[i] == '0'){
+                    bin = '0'+ bin;
+                }else{
+                    bin = '1'+ bin;
+                    for (int j = i-1; j >= 0; j--){
+                        if (binArr[j] == '0'){
+                            bin = '1'+ bin;
+                        }else{
+                            bin = '0'+ bin;
+                        }
+                    }
+                    return bin;
+                }
+            }
+        }
+        return bin;
+    }
+    String toEX(int n){
+        String bin = "";
+        bin = toC2(n);
+        binType.setText("EX");
+        //Log.d("debug",bin);
+        if (n < 0) {
+            if (bin.charAt(0) == '0') {
+                bin = '1' + bin.substring(1);
+            } else {
+                bin = '0' + bin.substring(1);
+            }
+        }
+        //Log.d("debug",bin);
+        return bin;
     }
 
     @Override

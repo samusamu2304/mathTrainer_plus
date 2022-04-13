@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
     private static final int RC_SIGN_IN = 69;
     private int lvl = 1;;
     private ImageButton suma, resta, multiplicacion, division, random;
+    private Button binary;
     private IndicatorSeekBar seekLvl;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -64,6 +66,7 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         multiplicacion = findViewById(R.id.multiplicacion);
         division = findViewById(R.id.division);
         random = findViewById(R.id.random);
+        binary = findViewById(R.id.binary);
         seekLvl = findViewById(R.id.seekTime);
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.navigation_view);
@@ -135,6 +138,15 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 intentCalc.putExtra(EXTRA_STRING,"random");
+                intentCalc.putExtra("lvl", lvl);
+                startActivity(intentCalc);
+
+            }
+        });
+        binary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intentCalc.putExtra(EXTRA_STRING,"binary");
                 intentCalc.putExtra("lvl", lvl);
                 startActivity(intentCalc);
 
